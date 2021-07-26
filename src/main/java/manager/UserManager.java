@@ -12,13 +12,15 @@ public class UserManager {
     private Connection connection = DBConnectionProvider.getInstance().getConnection();
 
     public boolean register(User user) {
-        String sql = "INSERT INTO users(name,surname,email,password) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO users(name,surname,email,password,pic_url,biography) VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, user.getName());
             statement.setString(2, user.getSurName());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getPassword());
+            statement.setString(5, user.getPicUrl());
+            statement.setString(6, user.getBiography());
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -29,6 +31,7 @@ public class UserManager {
             e.printStackTrace();
         }
         return false;
+
     }
 
     public User getByID(long id) {
@@ -101,7 +104,9 @@ public class UserManager {
                     .surName(resultSet.getString(3))
                     .email(resultSet.getString(4))
                     .password(resultSet.getString(5))
-                    .userType(UserType.valueOf(resultSet.getString(6)))
+                    .picUrl(resultSet.getString(6))
+                    .biography(resultSet.getString(7))
+                    .userType(UserType.valueOf(resultSet.getString(8)))
                     .build();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -109,8 +114,8 @@ public class UserManager {
         return null;
     }
 
-    public void deleteUser(int id){
-        String sql = "DELETE FROM users where id="+id;
+    public void deleteUser(int id) {
+        String sql = "DELETE FROM users where id=" + id;
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
@@ -118,5 +123,16 @@ public class UserManager {
             e.printStackTrace();
         }
 
+    }
+
+    public void updateUser(User user) {
+        try {
+            Statement statement = connection.createStatement();
+            String query = String.format("Update users set name='%s', surname='%s',email='%s',password='%s',pic_url='%s',biograph='%s' WHERE id=" + user.getId(),
+                    user.getName(), user.getSurName(), user.getEmail(), user.getPassword(), user.getPicUrl(), user.getBiography());
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

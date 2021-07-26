@@ -16,6 +16,9 @@ public class User {
     private String surName;
     private String email;
     private String password;
+    private String picUrl;
+    private String biography;
     private UserType userType = UserType.USER;
+
 
 }

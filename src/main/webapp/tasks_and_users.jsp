@@ -78,6 +78,8 @@
         <td>
             <form action="/delete_user" method="get" style="display: inline-block"><input type="hidden" name="id" value="<%=user1.getId()%>">
                 <input type="submit" value="delete">
+            </form><form action="/update" method="get" style="display: inline-block"><input type="hidden" name="id" value="<%=user1.getId()%>">
+                <input type="submit" value="edit">
             </form>
     <% } %>
     <!-- and so on... -->

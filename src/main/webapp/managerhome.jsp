@@ -59,12 +59,14 @@ div {
 <%--<% User user = (User) request.getSession().getAttribute("user");%>--%>
 <div style="">
     <div style="display: inline-block">
-        <form action="/managerHome" method="post">
+        <form action="/managerHome" method="post" enctype="multipart/form-data">
             <h3>Add User:</h3><br>
             name: <input type="text" name="name"> <br>
             surname: <input type="text" name="surname"> <br>
             email: <input type="text" name="email"> <br>
             password: <input type="text" name="password"> <br>
+            picture: <input type="file" name="picture"> <br>
+            biography: <input type="text" name="biography"> <br>
             <input type="submit" value="Submit">
         </form>
     </div>

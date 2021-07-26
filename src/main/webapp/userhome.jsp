@@ -1,7 +1,9 @@
 <%@ page import="model.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Task" %>
-<%@page import="servlet.UserHomeServlet" %><%--
+<%@page import="servlet.UserHomeServlet" %>
+<%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
+<%--
   Created by IntelliJ IDEA.
   User: User
   Date: 23.07.2021
@@ -62,8 +64,14 @@
     List<Task> tasks = (List<Task>) request.getAttribute("allUserTasks");
 %>
 <% User user = (User) request.getSession().getAttribute("user");%>
+<div style="display: inline-block">
+<img src="/getImage?picUrl=<%=user.getPicUrl()%>" width="400">
+</div>
+<div style="display: inline-block">
+       <h1> <%=user.getName() + " " + user.getSurName()%><br> </h1>
+    <%=user.getBiography()%>
 
-
+</div>
 <table class="styled-table">
     <thead>
     <tr>
